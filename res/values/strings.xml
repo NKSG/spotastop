@@ -9,5 +9,9 @@
     <string name="locationServicesStatus">Rilevamento della posizione in corso</string>
     <string name="rememberGPS">I sistemi di posizionamento non sono attivi! Clicca per attivarli!</string>
     <string name="catchMe">Stop!</string>
+    <string name="title_activity_select_bus_line">SelectBusLine</string>
+    <string name="chooseLine">"Sei salito su un autobus :-0 ? Quale? "</string>
+    <string name="lineLabel">Linea</string>
+    <string name="lineEnd">Direzione</string>
 
 </resources>

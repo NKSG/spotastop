@@ -7,7 +7,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_register"><b>Sign in</b>oppure Registrati</string>
     <string name="action_sign_in_short">Accedi</string>
-    <string name="action_forgot_password">Recover lost password</string>
+    <string name="action_forgot_password">Hai dimenticato la password?</string>
     <string name="login_progress_signing_in">Accesso in corso...</string>
     <string name="error_invalid_email">L\'indirizzo E-mail non è valido</string>
     <string name="error_invalid_password">La password è invalida</string>

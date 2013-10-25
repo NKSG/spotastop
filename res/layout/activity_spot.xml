@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/testata"
-            android:visibility="gone" />
+            android:src="@drawable/testata" />
 
         <TextView
             android:id="@+id/textView1"

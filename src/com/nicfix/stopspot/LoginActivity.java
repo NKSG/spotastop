@@ -224,7 +224,7 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				Intent i=new Intent(LoginActivity.this, SpotActivity.class);
+				Intent i=new Intent(LoginActivity.this, SelectBusLine.class);
 				LoginActivity.this.startActivity(i);
 			} else {
 				mPasswordView
