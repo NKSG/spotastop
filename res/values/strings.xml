@@ -10,8 +10,9 @@
     <string name="rememberGPS">I sistemi di posizionamento non sono attivi! Clicca per attivarli!</string>
     <string name="catchMe">Ferma!</string>
     <string name="title_activity_select_bus_line">SelectBusLine</string>
-    <string name="chooseLine">"Sei salito su un autobus :-0 ? Quale? "</string>
+    <string name="chooseLine">&quot;Sei su un autobus? Quale? &quot;</string>
     <string name="lineLabel">Linea</string>
     <string name="lineEnd">Direzione</string>
+    <string name="spotStop">Spotta la fermata ;)</string>
 
 </resources>

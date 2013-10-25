@@ -65,13 +65,10 @@
                 android:textAppearance="?android:attr/textAppearance"
                 android:textColor="@android:color/primary_text_dark" />
 
-            <Button
-                android:id="@+id/stopButton"
+            <include
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="@string/catchMe"
-                android:textColor="@android:color/primary_text_light" />
+                layout="@layout/push_stop" />
 
         </LinearLayout>
 
