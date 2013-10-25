@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/spotMerge"
+    android:id="@+id/merge"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -9,22 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/the_moment_on_the_bus_by_vladm" />
+        android:src="@drawable/love_bus_by_orzz" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/background_dark"
         android:gravity="end|start" >
-
-        <ProgressBar
-            android:id="@+id/searchingPositionBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:indeterminateOnly="false"
-            android:max="100"
-            android:progress="100" />
 
         <TextView
             android:id="@+id/actualPositionText"
@@ -39,9 +30,9 @@
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom|center_horizontal"
+        android:gravity="bottom|center_vertical"
         android:orientation="vertical"
-        tools:context=".SpotActivity" >
+        tools:context=".SelectBusLine" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,52 +47,52 @@
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="0dp"
                 android:background="@android:color/background_dark"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="@string/message"
+                android:text="@string/chooseLine"
                 android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearance"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/primary_text_dark" />
 
-            <Button
-                android:id="@+id/stopButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="@string/catchMe"
-                android:textColor="@android:color/primary_text_light" />
+            <ScrollView
+                android:id="@+id/scrollView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
+                <LinearLayout
+                    android:id="@+id/busList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#d0d0d0"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/noLocationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:background="#e0e0e0"
             android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/noLocationServicesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|center_horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 android:text="@string/rememberGPS"
-                android:textAppearance="?android:attr/textAppearance"
-                android:textColor="@android:color/primary_text_light" />
+                android:textAppearance="?android:attr/textAppearance" />
 
             <ToggleButton
                 android:id="@+id/toggleGps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton"
-                android:textColor="@android:color/primary_text_light" />
-
+                android:text="ToggleButton" />
         </LinearLayout>
 
     </LinearLayout>

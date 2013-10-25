@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="GPS">GPS</string>
-    <string name="message">Sei ad una fermata? Clicca subito sul bottone qui sotto !!!  XD</string>
+    <string name="message">Sei ad una fermata?</string>
     <string name="locationServicesStatus">Rilevamento della posizione in corso</string>
     <string name="rememberGPS">I sistemi di posizionamento non sono attivi! Clicca per attivarli!</string>
-    <string name="catchMe">Stop!</string>
+    <string name="catchMe">Ferma!</string>
     <string name="title_activity_select_bus_line">SelectBusLine</string>
     <string name="chooseLine">"Sei salito su un autobus :-0 ? Quale? "</string>
     <string name="lineLabel">Linea</string>
