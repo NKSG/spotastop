@@ -1,7 +1,5 @@
 package com.cipciop.spotastop;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -13,9 +11,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cipciop.spotastop.domain.Line;
 import com.cipciop.spotastop.presentation.BusLineItem;
 
@@ -25,6 +25,13 @@ public class SelectBusLine extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_bus_line);
+		findViewById(R.id.refresh).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				StopSpotApp.getInstance().requestLinesListUpdate();
+			}
+		});
 	}
 
 	/* Request updates at startup */
@@ -51,9 +58,8 @@ public class SelectBusLine extends Activity {
 					.setDuration(animTime).alpha(0);
 		} else
 			((ViewGroup) findViewById(R.id.interactive)).setAlpha(0);
-		
-		((TextView) SelectBusLine.this
-				.findViewById((R.id.linesLoadedText)))
+
+		((TextView) SelectBusLine.this.findViewById((R.id.linesLoadedText)))
 				.setText(getResources().getString(R.string.requestingLines));
 	}
 
@@ -70,11 +76,8 @@ public class SelectBusLine extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			((ViewGroup) findViewById(R.id.interactive)).setAlpha(0);
 			((ViewGroup) findViewById(R.id.busList)).removeAllViews();
-			
-			
-			
-			((TextView) SelectBusLine.this
-					.findViewById((R.id.linesLoadedText)))
+
+			((TextView) SelectBusLine.this.findViewById((R.id.linesLoadedText)))
 					.setText("Linee ricevute correttamente");
 
 			for (Line l : StopSpotApp.getInstance().getLinesList()) {
@@ -85,7 +88,7 @@ public class SelectBusLine extends Activity {
 						LinearLayout.LayoutParams.WRAP_CONTENT));
 				((ViewGroup) findViewById(R.id.busList)).addView(lineItem);
 			}
-			
+
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 				final int animTime = getResources().getInteger(
 						android.R.integer.config_longAnimTime);

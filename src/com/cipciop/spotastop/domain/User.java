@@ -56,19 +56,19 @@ public class User extends Resource {
 	}
 
 	public boolean login(String username, String password) {
-
 		String passwordHash = "";
-		MessageDigest md;
-		try {
-			byte[] bytesOfMessage = password.getBytes("UTF-8");
-			md = MessageDigest.getInstance("MD5");
-			byte[] thedigest = md.digest(bytesOfMessage);
-			passwordHash = new String(thedigest, "UTF-8");
-		} catch (NoSuchAlgorithmException e) {
-		} catch (UnsupportedEncodingException e) {
+		if (password != null) {
+
+			MessageDigest md;
+			try {
+				byte[] bytesOfMessage = password.getBytes("UTF-8");
+				md = MessageDigest.getInstance("MD5");
+				byte[] thedigest = md.digest(bytesOfMessage);
+				passwordHash = new String(thedigest, "UTF-8");
+			} catch (NoSuchAlgorithmException e) {
+			} catch (UnsupportedEncodingException e) {
+			}
 		}
-		System.out.println(this.password);
-		System.out.println(password);
 		return this.username.equals(username)
 				&& (this.password.equals(password) || passwordHash
 						.equals(passwordHash));

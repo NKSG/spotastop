@@ -1,8 +1,5 @@
 package com.cipciop.spotastop;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,12 +7,10 @@ import java.util.HashMap;
 import resources.Resource;
 import rest.RestApi;
 import android.app.Application;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
-import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 import com.cipciop.spotastop.domain.BusStop;
 import com.cipciop.spotastop.domain.GeoPos;
@@ -42,6 +37,8 @@ public class StopSpotApp extends Application {
 
 	private User loggedUser = null;
 
+	private SharedPreferences prefs;
+
 	public static StopSpotApp getInstance() {
 		return StopSpotApp.instance;
 	}
@@ -49,7 +46,15 @@ public class StopSpotApp extends Application {
 	public StopSpotApp() {
 		super();
 		StopSpotApp.instance = this;
-		RestApi.setServerUrl("http://192.168.159.115");
+		RestApi.setServerUrl("http://192.168.159.149");
+	}
+
+	public SharedPreferences getPrefs() {
+		return prefs;
+	}
+
+	public void setPrefs(SharedPreferences prefs) {
+		this.prefs = prefs;
 	}
 
 	public HashMap<String, Line> getLines() {
@@ -85,7 +90,8 @@ public class StopSpotApp extends Application {
 
 	public void updateLinesList(ArrayList<Resource> lines) {
 		for (int i = 0; i < lines.size(); i++) {
-			StopSpotApp.this.lines.put(String.valueOf(lines.get(i).getResourceIdentifier()),
+			StopSpotApp.this.lines.put(
+					String.valueOf(lines.get(i).getResourceIdentifier()),
 					((Line) lines.get(i)));
 		}
 		Intent intent = new Intent();

@@ -60,12 +60,12 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-
-		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+			// Set up the login form.
+			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
 
+		
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -205,7 +205,6 @@ public class LoginActivity extends Activity {
 	public void requestLogin() {
 		StopSpotApp.getInstance().setInsertedUsername(mEmail);
 		StopSpotApp.getInstance().setInsertedPassword(mPassword);
-
 		Intent i = new Intent(LoginActivity.this, LoginService.class);
 		startService(i);
 	}
@@ -229,9 +228,9 @@ public class LoginActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		IntentFilter focusChangedFilter = new IntentFilter();
-		focusChangedFilter
-				.addAction("com.cipciop.spotastop.loginDone");
+		focusChangedFilter.addAction("com.cipciop.spotastop.loginDone");
 		this.registerReceiver(this.loginDoneReceiver, focusChangedFilter);
+		//this.requestLogin();
 	}
 
 	/* Remove the locationlistener updates when Activity is paused */
@@ -240,7 +239,6 @@ public class LoginActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		this.unregisterReceiver(this.loginDoneReceiver);
-
 	}
 
 }

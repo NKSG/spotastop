@@ -36,6 +36,11 @@ public class LoginService extends Service {
 						StopSpotApp.getInstance().setLoggedUser(
 								(User) users.get(0));
 					}
+					else
+					{
+						StopSpotApp.getInstance().setLoggedUser(
+								null);
+					}
 				} else {
 					
 					newUser.setUsername(StopSpotApp.getInstance()
