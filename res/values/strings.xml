@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Spot a stoP</string>
+    <string name="app_name">Spotta la Fermata!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="GPS">GPS</string>
@@ -19,5 +19,15 @@
     <string name="new_stop_created_message">Grazie mille, ci hai aiutato a raccogliere informazioni fondamentali. Continua ad aiutarci, sarai fra i primi a poter usufruire di una nuova app per i bus nella tua città ;)</string>
     <string name="pushingStop">Sto creando una nuova fermata XD</string>
     <string name="change_line">Cambia linea</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="register">Registrati</string>
+    <string name="nome">Nome</string>
+    <string name="cognome">Cognome</string>
+    <string name="fotoProfilo">Foto profilo</string>
+    <string name="title_activity_error">ErrorActivity</string>
+    <string name="something_gone_wrong">Qualcosa è andato storto :( Riprova più tardi ...</string>
+    <string name="error">Errore</string>
+    <string name="invalid_login">Email o password non corretti, prova ancora :)</string>
+    <string name="registering_new_user">Registrazione in corso</string>
 
 </resources>

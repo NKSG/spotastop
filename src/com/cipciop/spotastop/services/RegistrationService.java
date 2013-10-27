@@ -12,7 +12,7 @@ import android.os.IBinder;
 import com.cipciop.spotastop.StopSpotApp;
 import com.cipciop.spotastop.domain.User;
 
-public class LoginService extends Service {
+public class RegistrationService extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -29,22 +29,33 @@ public class LoginService extends Service {
 						.getInsertedUsername());
 
 				ArrayList<Resource> users = RestApi.queryResources(c);
-				if (users.size() > 0) {
-					if (((User) users.get(0)).login(StopSpotApp.getInstance()
-							.getInsertedUsername(), StopSpotApp.getInstance()
-							.getInsertedPassword())) {
-						StopSpotApp.getInstance().setLoggedUser(
-								(User) users.get(0));
-					} else {
-						StopSpotApp.getInstance().setLoggedUser(null);
+				if (users.size() == 0) {
+					
+					newUser.setUsername(StopSpotApp.getInstance()
+							.getInsertedUsername());
+					newUser.setPassword(StopSpotApp.getInstance()
+							.getInsertedPassword());
+					newUser.store();
+					
+					c.addConstraint("resClass", "cipciop\\spotastop\\User");
+					c.addConstraint("username", StopSpotApp.getInstance()
+							.getInsertedUsername());
+
+					users = RestApi.queryResources(c);
+					if (users.size() > 0) {
+						if (((User) users.get(0))
+								.login(StopSpotApp.getInstance()
+										.getInsertedUsername(), StopSpotApp
+										.getInstance().getInsertedPassword())) {
+							StopSpotApp.getInstance().setLoggedUser(
+									(User) users.get(0));
+						}
 					}
-				} else {
-					StopSpotApp.getInstance().setLoggedUser(null);
 				}
 
 			}
 		}).start();
-
+		
 		return 0;
 	}
 }

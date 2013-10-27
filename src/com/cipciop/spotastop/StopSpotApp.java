@@ -7,10 +7,11 @@ import java.util.HashMap;
 import resources.Resource;
 import rest.RestApi;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.location.Location;
+import android.preference.PreferenceManager;
 
 import com.cipciop.spotastop.domain.BusStop;
 import com.cipciop.spotastop.domain.GeoPos;
@@ -46,7 +47,7 @@ public class StopSpotApp extends Application {
 	public StopSpotApp() {
 		super();
 		StopSpotApp.instance = this;
-		RestApi.setServerUrl("http://192.168.159.149");
+		RestApi.setServerUrl("http://79.8.248.12");
 	}
 
 	public SharedPreferences getPrefs() {
@@ -141,7 +142,11 @@ public class StopSpotApp extends Application {
 	}
 
 	public String getInsertedPassword() {
-
+		if (insertedPassword == null) {
+			
+			insertedUsername = prefs.getString("username", null);
+			insertedPassword = prefs.getString("password", null);
+		}
 		return insertedPassword;
 	}
 
@@ -150,6 +155,11 @@ public class StopSpotApp extends Application {
 	}
 
 	public String getInsertedUsername() {
+		if (insertedUsername == null) {
+			
+			insertedUsername = prefs.getString("username", null);
+			insertedPassword = prefs.getString("password", null);
+		}
 		return insertedUsername;
 	}
 
@@ -163,6 +173,11 @@ public class StopSpotApp extends Application {
 
 	public void setLoggedUser(User loggedUser) {
 		this.loggedUser = loggedUser;
+
+		prefs.edit().putString("username", insertedUsername);
+		prefs.edit().putString("password", insertedPassword);
+		prefs.edit().commit();
+
 		Intent intent = new Intent();
 		intent.setAction("com.cipciop.spotastop.loginDone");
 		StopSpotApp.this.getApplicationContext().sendBroadcast(intent);

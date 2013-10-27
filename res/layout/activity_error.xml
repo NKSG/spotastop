@@ -1,0 +1,77 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spotMerge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bus_shelter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
+        android:gravity="end|start" >
+
+        <ProgressBar
+            android:id="@+id/searchingPositionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:progress="100" />
+
+        <TextView
+            android:id="@+id/actualPositionText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/locationServicesStatus"
+            android:textColor="@android:color/primary_text_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/interactive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        tools:context=".SpotActivity" >
+
+        <LinearLayout
+            android:id="@+id/spotter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="top"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:background="@android:color/background_dark"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="@string/error"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                layout="@layout/error_message" />
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

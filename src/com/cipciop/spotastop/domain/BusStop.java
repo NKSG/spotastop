@@ -58,7 +58,6 @@ public class BusStop extends Resource implements Comparable<Object> {
 		links.add(new Link(this, this.line,"line"));
 		links.add(new Link(this,StopSpotApp.getInstance().getLoggedUser(),"creator"));
 		RestApi.editResources(resources,links);
-		
 	}
 
 	@SuppressLint("DefaultLocale")

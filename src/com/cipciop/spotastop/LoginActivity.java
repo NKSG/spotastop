@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cipciop.spotastop.domain.Line;
 import com.cipciop.spotastop.presentation.BusLineItem;
@@ -60,13 +62,31 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-			// Set up the login form.
-			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+
+		StopSpotApp.getInstance().setPrefs(getPreferences(MODE_PRIVATE));
+
+		// Set up the login form.
+		mLoginFormView = findViewById(R.id.login_form);
+		mLoginStatusView = findViewById(R.id.login_status);
+		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+
+		mEmail = StopSpotApp.getInstance().getInsertedUsername();
+
 		mEmailView = (EditText) findViewById(R.id.email);
+
 		mEmailView.setText(mEmail);
 
-		
+		mPassword = StopSpotApp.getInstance().getInsertedPassword();
+
 		mPasswordView = (EditText) findViewById(R.id.password);
+
+		mPasswordView.setText(mPassword);
+
+		if (mEmail != null) {
+			mLoginStatusMessageView.setText("Tentativo di accesso come "
+					+ mEmail);
+		}
+
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -80,15 +100,20 @@ public class LoginActivity extends Activity {
 					}
 				});
 
-		mLoginFormView = findViewById(R.id.login_form);
-		mLoginStatusView = findViewById(R.id.login_status);
-		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
-
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
+					}
+				});
+		findViewById(R.id.register_button).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent i = new Intent(LoginActivity.this,
+								RegisterActivity.class);
+						startActivity(i);
 					}
 				});
 		this.getWindow().setSoftInputMode(
@@ -101,6 +126,7 @@ public class LoginActivity extends Activity {
 					.setDuration(animTime).alpha(1);
 		} else
 			((ViewGroup) findViewById(R.id.interactive)).setAlpha(1);
+
 	}
 
 	@Override
@@ -175,17 +201,6 @@ public class LoginActivity extends Activity {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
-			mLoginStatusView.setVisibility(View.VISIBLE);
-			mLoginStatusView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginStatusView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-
 			mLoginFormView.setVisibility(View.VISIBLE);
 			mLoginFormView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
@@ -197,7 +212,6 @@ public class LoginActivity extends Activity {
 						}
 					});
 		} else {
-			mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
@@ -217,7 +231,10 @@ public class LoginActivity extends Activity {
 				Intent i = new Intent(LoginActivity.this, SelectBusLine.class);
 				startActivity(i);
 			} else {
-				showProgress(true);
+				showProgress(false);
+				mLoginStatusMessageView.setText(R.string.invalid_login);
+				Toast.makeText(context, "Failed to login", Toast.LENGTH_LONG)
+						.show();
 			}
 		}
 
@@ -230,7 +247,6 @@ public class LoginActivity extends Activity {
 		IntentFilter focusChangedFilter = new IntentFilter();
 		focusChangedFilter.addAction("com.cipciop.spotastop.loginDone");
 		this.registerReceiver(this.loginDoneReceiver, focusChangedFilter);
-		//this.requestLogin();
 	}
 
 	/* Remove the locationlistener updates when Activity is paused */
