@@ -1,20 +1,30 @@
-package com.nicfix.stopspot;
+package com.cipciop.spotastop;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.cipciop.spotastop.domain.Line;
+import com.cipciop.spotastop.presentation.BusLineItem;
+import com.cipciop.spotastop.services.LoginService;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -33,11 +43,6 @@ public class LoginActivity extends Activity {
 	 */
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
-	/**
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
-	private UserLoginTask mAuthTask = null;
-
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
@@ -49,6 +54,7 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,6 +91,16 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
+		this.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			final int animTime = getResources().getInteger(
+					android.R.integer.config_longAnimTime);
+			((ViewGroup) findViewById(R.id.interactive)).animate()
+					.setDuration(animTime).alpha(1);
+		} else
+			((ViewGroup) findViewById(R.id.interactive)).setAlpha(1);
 	}
 
 	@Override
@@ -100,9 +116,6 @@ public class LoginActivity extends Activity {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptLogin() {
-		if (mAuthTask != null) {
-			return;
-		}
 
 		// Reset errors.
 		mEmailView.setError(null);
@@ -146,8 +159,7 @@ public class LoginActivity extends Activity {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+			requestLogin();
 		}
 	}
 
@@ -185,58 +197,50 @@ public class LoginActivity extends Activity {
 						}
 					});
 		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
 			mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-		@Override
-		protected Boolean doInBackground(Void... params) {
+	public void requestLogin() {
+		StopSpotApp.getInstance().setInsertedUsername(mEmail);
+		StopSpotApp.getInstance().setInsertedPassword(mPassword);
 
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					
-					return pieces[1].equals(mPassword);
-				}
-			}
-			
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			mAuthTask = null;
-			showProgress(false);
-
-			if (success) {
-				Intent i=new Intent(LoginActivity.this, SelectBusLine.class);
-				LoginActivity.this.startActivity(i);
-			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
-			}
-		}
-
-		@Override
-		protected void onCancelled() {
-			mAuthTask = null;
-			showProgress(false);
-		}
+		Intent i = new Intent(LoginActivity.this, LoginService.class);
+		startService(i);
 	}
+
+	private BroadcastReceiver loginDoneReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (StopSpotApp.getInstance().getLoggedUser() != null) {
+				Intent i = new Intent(LoginActivity.this, SelectBusLine.class);
+				startActivity(i);
+			} else {
+				showProgress(true);
+			}
+		}
+
+	};
+
+	/* Request updates at startup */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		IntentFilter focusChangedFilter = new IntentFilter();
+		focusChangedFilter
+				.addAction("com.cipciop.spotastop.loginDone");
+		this.registerReceiver(this.loginDoneReceiver, focusChangedFilter);
+	}
+
+	/* Remove the locationlistener updates when Activity is paused */
+	@SuppressLint("NewApi")
+	@Override
+	protected void onPause() {
+		super.onPause();
+		this.unregisterReceiver(this.loginDoneReceiver);
+
+	}
+
 }

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/line_change"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     android:background="#d0d0d0"
+    android:gravity="center_vertical|start"
     android:orientation="horizontal"
     android:padding="10dp" >
 	
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:contentDescription="TODO"
         android:scaleType="centerCrop"
         android:src="@drawable/bus_hi_res" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="3dp"
@@ -31,18 +32,9 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:text="@string/lineLabel"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
-                android:id="@+id/lineName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="1"
+                android:layout_height="30dp"
+                android:text="@string/change_line"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/primary_text_light" />
 
@@ -52,22 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lineEnd"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
-                android:id="@+id/lineDirection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/primary_text_light" />
 
         </LinearLayout>
 

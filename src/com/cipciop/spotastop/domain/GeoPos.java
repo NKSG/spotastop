@@ -1,24 +1,17 @@
-package com.nicfix.stopspot.domain;
-
+package com.cipciop.spotastop.domain;
 
 public class GeoPos {
 	private double latitude;
 	private double longitude;
 	private String addressName;
-	/**
-	 * / wrong side
-	 */
-	private Bus position;
-	
-	
-	public GeoPos(){}
-	
-	
-	public GeoPos(double latitude, double longitude){
+
+	public GeoPos() {
+	}
+
+	public GeoPos(double latitude, double longitude) {
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 	}
-
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
@@ -44,11 +37,4 @@ public class GeoPos {
 		return this.addressName;
 	}
 
-	public void setPosition(Bus position) {
-		this.position = position;
-	}
-
-	public Bus getPosition() {
-		return this.position;
-	}
 }

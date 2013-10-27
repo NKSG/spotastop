@@ -36,20 +36,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LinearLayout1"
+        android:id="@+id/interactive"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical"
         tools:context=".SpotActivity" >
 
         <LinearLayout
+            android:id="@+id/spotter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="#e0e0e0"
-            android:gravity="center_horizontal|center_vertical|top"
+            android:gravity="top"
             android:orientation="vertical" >
 
             <TextView
@@ -66,10 +67,15 @@
                 android:textColor="@android:color/primary_text_dark" />
 
             <include
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 layout="@layout/push_stop" />
 
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/line_change" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,9 +104,7 @@
                 android:layout_height="wrap_content"
                 android:text="ToggleButton"
                 android:textColor="@android:color/primary_text_light" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </merge>

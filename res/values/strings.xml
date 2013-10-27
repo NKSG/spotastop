@@ -10,9 +10,14 @@
     <string name="rememberGPS">I sistemi di posizionamento non sono attivi! Clicca per attivarli!</string>
     <string name="catchMe">Ferma!</string>
     <string name="title_activity_select_bus_line">SelectBusLine</string>
-    <string name="chooseLine">&quot;Sei su un autobus? Quale? &quot;</string>
+    <string name="chooseLine">Scegli un autobus</string>
     <string name="lineLabel">Linea</string>
     <string name="lineEnd">Direzione</string>
     <string name="spotStop">Spotta la fermata ;)</string>
+    <string name="requestingLines">Caricamento delle linee in corso</string>
+    <string name="new_stop_created">Grazie, hai appena registrato una nuova fermata ;)</string>
+    <string name="new_stop_created_message">Grazie mille, ci hai aiutato a raccogliere informazioni fondamentali. Continua ad aiutarci, sarai fra i primi a poter usufruire di una nuova app per i bus nella tua città ;)</string>
+    <string name="pushingStop">Sto creando una nuova fermata XD</string>
+    <string name="change_line">Cambia linea</string>
 
 </resources>

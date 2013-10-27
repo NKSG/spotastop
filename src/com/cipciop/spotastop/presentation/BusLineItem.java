@@ -1,4 +1,4 @@
-package com.nicfix.stopspot.presentation;
+package com.cipciop.spotastop.presentation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nicfix.stopspot.LoginActivity;
-import com.nicfix.stopspot.R;
-import com.nicfix.stopspot.SelectBusLine;
-import com.nicfix.stopspot.SpotActivity;
-import com.nicfix.stopspot.StopSpotApp;
-import com.nicfix.stopspot.domain.Line;
+import com.cipciop.spotastop.LoginActivity;
+import com.cipciop.spotastop.SelectBusLine;
+import com.cipciop.spotastop.SpotActivity;
+import com.cipciop.spotastop.StopSpotApp;
+import com.cipciop.spotastop.domain.Line;
+import com.cipciop.spotastop.R;
 
 public class BusLineItem extends LinearLayout {
 
@@ -37,16 +37,14 @@ public class BusLineItem extends LinearLayout {
 		this.line = l;
 		this.lineName = (TextView) findViewById(R.id.lineName);
 		this.lineDirection = (TextView) findViewById(R.id.lineDirection);
-
 		this.lineName.setText(l.getName());
-		if (l.getPath().size() > 0)
-			this.lineDirection.setText(l.getPath().get(l.getPath().size() - 1)
-					.getBusStop().getCode());
+		this.lineDirection.setText(l.getDirezione());
 
 		this.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				StopSpotApp.getInstance().setActualLine(line);
 				Intent i = new Intent(getContext(), SpotActivity.class);
 				getContext().startActivity(i);
 			}
